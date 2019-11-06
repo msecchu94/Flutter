@@ -1,0 +1,86 @@
+SECCION 1 CONFIG.
+
+Programas:
+
+    VSCode
+
+    Git
+
+    Postman
+
+    Android Studio
+
+    Mac OSX - XCode
+
+Plugins:
+
+    Awesome Flutter Snippets
+
+    Bracket Pair Colorizer 2
+
+    Dart
+
+    Flutter
+
+    Material Icon Theme
+
+    Paste JSON as Code
+
+    Terminal
+
+Tema que estoy usando:
+
+    Monokai Night
+
+Configuración del Bracket Pair Colorizer 2:
+
+"bracket-pair-colorizer-2.colors": [
+    "#fafafa",
+    "#9F51B6",
+    "#F7C244",
+    "#F07850",
+    "#9CDD29",
+    "#C497D4"
+],
+
+SECCION 2 DART : 
+
+https://dartpad.dartlang.org/
+Inyectar variable (+nombre o $nombre)
+
+Numeros: int-double
+
+Boolean y condiciones:
+
+Lista: List
+
+Map: clase abstracta que recibe dos valores EJ. 
+
+ String propiedad = 'soltero';
+  
+  Map <String,dynamic> persona = {
+    
+    'nombre':'maxi',
+    'edad':30,
+    'soltero':true
+    
+  };
+  
+ print(persona);
+ print(persona['nombre']);
+ print(persona['edad']);
+ print(persona[propiedad]);
+
+ persona.addAll({'Empleado':false});
+ print(persona);
+
+ FUNCIONES:(fuera de la clase) void main (){
+  
+String mensaje =  saludar(texto:'hola,' , nombre:'maxi');
+print(mensaje);
+        }
+
+String saludar({String texto,String nombre}){
+  
+return '$texto $nombre';
+    }
