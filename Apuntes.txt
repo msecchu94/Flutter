@@ -1,3 +1,7 @@
+USER: info@extrados.com.ar
+PASS: ExtraDosE2
+
+
 SECCION 1 CONFIG.
 
 Programas:
@@ -84,3 +88,118 @@ String saludar({String texto,String nombre}){
   
 return '$texto $nombre';
     }
+
+Clases: (metodos)
+ 
+ void main() {
+
+//jamas cambiara la prorpiedad(final)
+  final volverine = Heroe(nombre:'Logan',poder:'Regeneracion'); 
+  print(volverine.toStrin());
+
+}
+
+class Heroe {
+  
+  String nombre;
+  String poder;
+ 
+  Heroe( { String nombre, String poder}){
+    this.nombre=nombre;
+    this.poder=poder;
+    
+  }
+  
+  String toStrin(){
+    
+    return '${this.nombre} - ${this.poder}';
+  }
+}
+
+FORMAS CORTAS DE DEFINIR LAS PROPIEDADES
+
+class Heroe {
+  
+  String nombre;
+  String poder;
+ 
+  Heroe( { this.nombre, this.poder}){
+    this.nombre=nombre;
+    this.poder=poder;
+    
+  }
+  
+  String toString()=> 'nombre:$nombre - poder:$poder}';
+
+  CONSTRUCTORES CON NOMBRE : 
+
+  import 'dart:convert';
+void main() {
+
+//   final volverine = Heroe('Logan','Regeneracion'); 
+  final rowJson='{"nombre":"Logan","poder":"Regeneracion"}';
+  
+  final parseJson = json.decode(rowJson);
+  
+  final volverine =new Heroe.fromJson(parseJson);
+  
+  print(volverine.nombre);
+  print(volverine.poder);
+}
+
+class Heroe {
+  
+  String nombre;
+  String poder;
+ 
+  Heroe( { this.nombre,this.poder});
+
+  Heroe.fromJson(Map parseJson){
+    
+    nombre = parseJson['nombre'];
+     poder = parseJson['poder'];
+  }
+}
+
+GETTERS Y SETTERS : 
+
+_props(las hace privadas)
+
+void main(){
+  
+  final cuadrado = new Cuadrado();
+  
+  cuadrado.lado=10;
+  
+  print(cuadrado);
+  print ('area:${cuadrado.area}');
+  
+}
+
+
+
+class Cuadrado{
+  
+  double _lado;
+  double _area;
+  
+  set lado (double valor ){
+    
+    if(valor <=0){
+      
+      throw('el lado no puede se menor o igual a 0');
+      
+    } 
+    _lado = valor;
+   
+  }
+  
+  double get area => _lado * _lado;
+  
+  
+   toString () => 'Lado:$_lado'; 
+}
+
+CLASES ABSTRACTAS : (abstract class name)
+
+    
