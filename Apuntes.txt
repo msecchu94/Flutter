@@ -202,6 +202,135 @@ class Cuadrado{
 
 CLASES ABSTRACTAS : (abstract class name)
 
+EXTEND : de clases
+
+void main() {
+
+  final superman=new Heroe();
+  superman.nombre='Clart Kent';
+  
+  final lutor= new Villano();
+  lutor.nombre='Lext Lutor';
+}
+
+abstract class Personaje{
+  String nombre;
+  String poder; 
+}
+
+class Heroe extends Personaje{
+  
+  int valentia;
+  }
+
+class Villano extends Personaje{
+  
+  int maldad;
+}
+
+MIXINS : 
+
+void main (){
+  
+  final pato = new Pato();
+  pato.volar();
+  
+  final tiburon = new Tiburon();
+  tiburon.nadar();
+  
+} 
+
+
+abstract class Animal {}
+
+abstract class Mamiferos extends Animal{} 
+
+abstract class Aves extends Animal{} 
+
+abstract class Pez extends Animal{} 
+
+abstract class Volador {
+  void volar ()=> print( 'estoy volando');
+}
+
+abstract class Nadador {
+  void nadar ()=> print( 'estoy nadando');
+}
+
+abstract class Caminante {
+  void caminar ()=> print( 'estoy caminando');
+}
+
+class Delfin extends Mamiferos with Nadador { }
+
+class Murcielago extends Mamiferos with Caminante,Volador { }
+
+class Gato extends Mamiferos with Caminante { }
+
+class Paloma extends Aves with Caminante, Volador { }
+
+class Pato extends Aves with Volador,Nadador,Caminante { }
+
+class Tiburon extends Pez with Nadador { }
+
+class PezVolador extends Pez with Nadador,Volador { }
+
+
+FUTURES : (PROMESAS) ( ver metodos )
+
+void main(){
+  
+  httpGet('http://api/nasa/aliens').then((data){
+          
+    print(data);     
+          
+  });
+}
+Future <String> httpGet(String Url ){
+  
+  return Future.delayed(new Duration(seconds:4), () {
+        return 'Hola Mundo';
+ });
+  
+}
+
+ASYNC - AWAIT :
+void main() async {
+  
+String data = await httpGet('http://api/nasa/aliens');
+          
+
+}
+Future <String> httpGet(String Url ){
+  
+  return Future.delayed(new Duration(seconds:4), () {
+        return 'Hola Mundo';
+ });
+  
+}
+
+
+SECCION 3 instalacion flutter equipos virtuales y locales : 
+
+*Temas puntuales de la sección
+
+*En esta sección tocaremos temas sobre:
+
+    -Instalaciones en Windows
+
+    -Instalaciones en OSX
+
+    -Android Studio
+
+    -XCode (Sólo en OSX)
+
+    -Correr en un Android físico
+
+    -Correr en un iPhone físico (Sólo OSX)
+
+    -Lanzar emuladores desde VSCode
+
+*Esta sección está destinada a las instalaciones propias de Flutter para poder realizar los desarrollos localmente.
 
 
     
