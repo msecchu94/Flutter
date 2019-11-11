@@ -332,5 +332,34 @@ SECCION 3 instalacion flutter equipos virtuales y locales :
 
 *Esta sección está destinada a las instalaciones propias de Flutter para poder realizar los desarrollos localmente.
 
+CREAR PROYECTO VS CODE : INTRODUCCION A FLUTTER (SECCION 4)
+
+Temas puntuales de la sección
+
+En esta sección tocaremos temas sobre:
+
+    Conceptos fundamentales en Flutter : 
+
+    Widgets: Clase que puede tener argumentos posiciones y argumentos con nombre ( StatelessWidget - StatefullWidget) 
+
+    Árbol de Widgets
+
+    Estructura de un proyecto en Flutter
+
+    Exposición de cada archivo generado automáticamente
+
+
+    SECCION 5 : 
+
+    En esta sección tocaremos temas sobre:
+
+    Stateless
+
+    Stateful
+
+    Scaffolds: 
+
+    Estilos
+
 
     
