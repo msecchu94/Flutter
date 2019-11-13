@@ -17,7 +17,7 @@ class _ContadorPageState extends State {
           centerTitle: true,
         ),
         body: Center(
-            child: Column(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Numeros de Clicks', style: _textoEstilo),
