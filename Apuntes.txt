@@ -361,5 +361,15 @@ En esta sección tocaremos temas sobre:
 
     Estilos
 
+    SECCION 6 : Componentes 
+
+    Listviews
+
+    ListTiles
+
+    Listas y map
+
+    Rutas
+
 
     
