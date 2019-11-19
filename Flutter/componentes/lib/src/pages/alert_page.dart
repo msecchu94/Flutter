@@ -9,9 +9,7 @@ class AlertPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_location),
-        onPressed: () {
-         
-        },
+        onPressed: () {},
       ),
     );
   }
