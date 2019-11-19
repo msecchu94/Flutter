@@ -15,5 +15,6 @@ Map<String, WidgetBuilder> getAplicationRoutes() {
     'card'  : (BuildContext context) => CardPage(),
     'animatedContainer'  : (BuildContext context) => AnimatedContainerPage(),
     'inputs'  : (BuildContext context) => InputPage(),
+    'slider'  : (BuildContext context) => SliderPage(),
   };
 }
