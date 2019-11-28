@@ -1,18 +1,28 @@
 import 'dart:math';
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class BotonesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: <Widget>[
-            _fondo(),
-            _titulos(),
-          ],
-        ),
-        bottomNavigationBar: _botonNavegacion(context));
+      body: Stack(
+        children: <Widget>[
+          _fondo(),
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _titulos(),
+                _botones(),
+              ],
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: _botonNavegacion(context),
+    );
   }
 
   Widget _fondo() {
@@ -69,12 +79,11 @@ class BotonesPage extends StatelessWidget {
 
   Widget _botonNavegacion(BuildContext context) {
     return Theme(
-        data: Theme.of(context)
-            .copyWith(
-              canvasColor: Color.fromRGBO(55, 57, 84, 1.0),
-              primaryColor: Colors.pinkAccent,
-              textTheme:Theme.of(context).textTheme.copyWith(caption:TextStyle(color: Color.fromRGBO(116, 117, 152, 1.0)))
-              ),
+        data: Theme.of(context).copyWith(
+            canvasColor: Color.fromRGBO(55, 57, 84, 1.0),
+            primaryColor: Colors.pinkAccent,
+            textTheme: Theme.of(context).textTheme.copyWith(
+                caption: TextStyle(color: Color.fromRGBO(116, 117, 152, 1.0)))),
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
@@ -85,5 +94,64 @@ class BotonesPage extends StatelessWidget {
                 icon: Icon(Icons.supervised_user_circle), title: Container()),
           ],
         ));
+  }
+
+  Widget _botones() {
+    return Table(children: [
+      TableRow(
+        children: [
+          _crearBotonesRedondeados(),
+          _crearBotonesRedondeados(),
+        ],
+      ),
+      TableRow(
+        children: [
+          _crearBotonesRedondeados(),
+          _crearBotonesRedondeados(),
+        ],
+      ),
+      TableRow(
+        children: [
+          _crearBotonesRedondeados(),
+          _crearBotonesRedondeados(),
+        ],
+      ),
+      TableRow(
+        children: [
+          _crearBotonesRedondeados(),
+          _crearBotonesRedondeados(),
+        ],
+      )
+    ]);
+  }
+
+  Widget _crearBotonesRedondeados() {
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          height: 180.0,
+          margin: EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+              color: Color.fromRGBO(62, 66, 107, 0.7),
+              borderRadius: BorderRadius.circular(20.0)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              SizedBox(height: 5.0),
+              CircleAvatar(
+                  backgroundColor: Colors.pinkAccent,
+                  child: Icon(
+                    Icons.business,
+                    color: Colors.white,
+                    size: 30.0,
+                  )),
+              Text('Enter', style: TextStyle(color: Colors.pinkAccent)),
+              SizedBox(height: 5.0),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,0 +1,23 @@
+Pautas de Diseño Bloc : 
+
+1) La Logica de negocio debe ser agnostica de la plataforma.
+
+2)Las entradas deben ser Sinks.
+
+3)Las salidas deben ser Strems.
+
+4) Las dependencias deben ser Inyectables.
+
+5)La implementacion puede ser lo que quieras si sigues todas las pautas.
+
+
+Pautas de Diseños de la interfaz de usuario : 
+
+1) bCada componente "suficientemente complejo" tiene un BloC correspondiente.(Pantalla Busqueda => Bloc de Busqueda)
+
+2) Los componentes deben enviar las entradas tal como son al BloC(Text Imput => entradas de usuario directo al BloC)
+
+3) Los componentes deben mostrar las salidas lo mas cereca posible a lo que reciben del BloC.(cambiar formato en Bloc y largarlo al componente ltal cual debe mostrarlo).
+
+4)Todas las ramificaciones deben estar basadas en salidas booleanas del BloC (SE MOSTRARA EL WIDGEWT SOLO SI LA SALIDA DEL BLOC ES BOOLEAN).
+
