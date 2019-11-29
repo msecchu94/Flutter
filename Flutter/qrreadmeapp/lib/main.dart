@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qrreadmeapp/pages/home_page.dart';
+import 'package:qrreadmeapp/src/pages/home_page.dart';
+
 
 void main() => runApp(MyApp());
 
