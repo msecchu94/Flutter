@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-// import 'package:qrcode_reader/qrcode_reader.dart';
-import 'package:qrreadmeapp/src/providers/db_provider.dart';
+import 'package:qrreadmeapp/src/bloc/scans_bloc.dart';
+import 'package:qrreadmeapp/src/models/qr_model.dart';
+
 
 import 'direcciones_page.dart';
+// import 'package:qrcode_reader/qrcode_reader.dart';
 import 'mapas_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  final scansBloc = new ScansBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,9 @@ class _HomePageState extends State<HomePage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.delete_outline),
-              onPressed: () {},
+              onPressed: () {
+                scansBloc.borarTodosScans();
+              },
             )
           ],
         ),
@@ -32,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
           child: Icon(Icons.filter_center_focus),
-          onPressed: _getQR,
+          onPressed: () => _getQR(context),
         ));
   }
 
@@ -66,8 +73,9 @@ class _HomePageState extends State<HomePage> {
   // htps://google.com
   // geo:40.724233047051785,-74.0731459101564
 
-  _getQR() async {
-    String futureString = 'htps://google.com';
+  _getQR(BuildContext context) async {
+    String futureString = 'https://google.com';
+
     // try {
     //   futureString = await new QRCodeReader().scan();
     // } catch (e) {
@@ -75,9 +83,19 @@ class _HomePageState extends State<HomePage> {
     // }
 
     if (futureString != null) {
-      final scan = ScanModel(valor:futureString );
+      final scan = ScanModel(valor: futureString);
+      scansBloc.agregarScan(scan);
 
-      DBProvider.db.nuevoScan(scan);
+      final scan2 =
+          ScanModel(valor: 'geo:40.724233047051785,-74.0731459101564');
+      scansBloc.agregarScan(scan2);
+
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750));
+        // utils.abrirScan(context, scan);
+      } else {
+        // utils.abrirScan(context, scan);
+      }
     }
   }
 }

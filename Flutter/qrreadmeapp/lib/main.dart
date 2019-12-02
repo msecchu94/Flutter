@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrreadmeapp/src/pages/home_page.dart';
-
+import 'package:qrreadmeapp/src/pages/mapa_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: 'home',
-      routes: {'home': (BuildContext context) => HomePage()},
-      theme: ThemeData(
-        primaryColor:Colors.deepPurple
-      ),
+      routes: {
+        'home': (BuildContext context) => HomePage(),
+        'mapa': (BuildContext context) => MapaPage(),
+      },
+      theme: ThemeData(primaryColor: Colors.deepPurple),
     );
   }
 }
