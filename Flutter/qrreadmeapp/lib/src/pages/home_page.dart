@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:qrreadmeapp/src/bloc/scans_bloc.dart';
 import 'package:qrreadmeapp/src/models/qr_model.dart';
 
-
 import 'direcciones_page.dart';
 // import 'package:qrcode_reader/qrcode_reader.dart';
 import 'mapas_page.dart';

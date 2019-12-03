@@ -1,5 +1,3 @@
-
-
 import 'package:latlong/latlong.dart';
 
 class ScanModel {
