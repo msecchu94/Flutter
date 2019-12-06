@@ -7,17 +7,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   runApp(MyApp());
 
-  PreferenciasUsuarios prefs = new PreferenciasUsuarios();
+  final prefs = new PreferenciasUsuarios();
   await prefs.initPrefs();
 }
 
 class MyApp extends StatelessWidget {
+  final prefs = new PreferenciasUsuarios();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Preferencias',
-      initialRoute: HomePage.routeName,
+      initialRoute: prefs.ultimaPagina,
       routes: {
         HomePage.routeName: (BuildContext context) => HomePage(),
         SettingsPage.routeName: (BuildContext context) => SettingsPage(),

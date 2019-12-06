@@ -13,7 +13,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _colorSecundario;
   int _genero;
-  String _nombre = 'Maxi';
+  String _nombre;
 
   TextEditingController _textController;
   final prefs = new PreferenciasUsuarios();
@@ -22,8 +22,10 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     _genero = prefs.genero;
     _colorSecundario = prefs.colorSecundario;
+    _nombre= prefs.nombreUsuraio;
     super.initState();
     _textController = new TextEditingController(text: _nombre);
+    prefs.ultimaPagina = SettingsPage.routeName;
   }
 
   _setSelectedRadio(int value) {

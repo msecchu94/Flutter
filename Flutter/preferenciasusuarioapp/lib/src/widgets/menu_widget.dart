@@ -3,7 +3,7 @@ import 'package:preferenciasusuarioapp/src/pages/home_page.dart';
 import 'package:preferenciasusuarioapp/src/pages/settings_page.dart';
 
 class MenuWidget extends StatelessWidget {
-  const MenuWidget({Key key}) : super(key: key);
+  // const MenuWidget({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

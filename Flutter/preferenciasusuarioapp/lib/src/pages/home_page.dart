@@ -5,10 +5,13 @@ import 'package:preferenciasusuarioapp/src/widgets/menu_widget.dart';
 
 class HomePage extends StatelessWidget {
   static final String routeName = 'home';
+
   final prefs = new PreferenciasUsuarios();
 
   @override
   Widget build(BuildContext context) {
+    prefs.ultimaPagina = HomePage.routeName;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Preferencias de Usuario'),
