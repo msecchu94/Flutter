@@ -4,13 +4,22 @@ abstract class LoginEvent extends Equatable {
   const LoginEvent();
 }
 
-class GetLogin extends LoginEvent {
+class Validar extends LoginEvent {
   final String email;
   final String pass;
 
-  const GetLogin(this.email, this.pass);
+  const Validar(this.email, this.pass);
 
   @override
-  // TODO: implement props
+  List<Object> get props => [email, pass];
+}
+
+class Ingresar extends LoginEvent {
+  final String email;
+  final String pass;
+
+  const Ingresar(this.email, this.pass);
+
+  @override
   List<Object> get props => [email, pass];
 }

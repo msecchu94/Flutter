@@ -1,28 +1,26 @@
+import 'package:blocvalidation/src/models/login.model.dart';
 import 'package:equatable/equatable.dart';
-import 'package:formvalidation/data/model/login.model.dart';
 
 abstract class LoginState extends Equatable {
   const LoginState();
 }
 
-class InicialLogin extends LoginState {
-  InicialLogin();
+class InitialLoginState extends LoginState {
+  
   @override
   List<Object> get props => [];
 }
 
-class HomeLoading extends LoginState {
-  HomeLoading();
+class Validando extends LoginState {
+  Validando();
   @override
   List<Object> get props => [];
 }
-
-class HomeLoaded extends LoginState {
-  final LoginModel loginModel;
-
-  HomeLoaded(this.loginModel);
+class Validado extends LoginState {
+ final LoginModel model;
+  Validado(this.model);
   @override
-  List<Object> get props => [loginModel];
+  List<Object> get props => [];
 }
 
 class ErrorLogin extends LoginState {

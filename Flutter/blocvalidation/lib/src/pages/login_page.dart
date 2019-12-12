@@ -1,24 +1,68 @@
-import 'package:flutter/material.dart';
-import 'package:formvalidation/bloc/login.dart';
-import 'package:formvalidation/bloc/provider.dart';
+import 'package:blocvalidation/bloc/login_bloc.dart';
+import 'package:blocvalidation/bloc/login_event.dart';
+import 'package:blocvalidation/bloc/login_state.dart';
+import 'package:blocvalidation/bloc/provider.dart';
+import 'package:blocvalidation/bloc/validator.dart';
 
-class LoginPage extends StatelessWidget {
-  
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final Validator validator = new Validator();
+
+  LoginBloc loginBloc;
+  @override
+  void initState() {
+    super.initState();
+    loginBloc = LoginBloc();
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          _crearFondo(context),
-          _loginForm(context),
-        ],
+      body: Container(
+        child: BlocListener<LoginBloc, LoginState>(
+          bloc: loginBloc,
+          listener: (context, state) {
+            if (state is ErrorLogin) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+              loginBloc.add(Regresar());
+            }
+          },
+          child: BlocBuilder<LoginBloc, LoginState>(
+            bloc: loginBloc,
+            builder: (context, state) {
+              if (state is InitialLoginState) {
+                return _stackPrincipal(context);
+              } else if (state is Validando) {
+                return buildLoading();
+              }
+              return Container();
+            },
+          ),
+        ),
       ),
     );
   }
 
-  Widget _loginForm(context) {
+  Widget _stackPrincipal(context) {
+    return Stack(
+      children: <Widget>[
+        _crearFondo(context),
+        _loginForm(context), // 
+      ],
+    );
+  }
 
-    final bloc = Provider.of(context);
+  Widget _loginForm(context) {
+    final inputValid = Provider.of(context);
     final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -47,11 +91,11 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 Text('Ingreso', style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 30.0),
-                _crearInput(bloc),
+                _crearInput(inputValid),
                 SizedBox(height: 10.0),
-                _crearPassword(bloc),
+                _crearPassword(inputValid),
                 SizedBox(height: 40.0),
-                _crearBoton(bloc),
+                _crearBoton(inputValid),
                 // _crearBoton(),
               ],
             ),
@@ -110,9 +154,9 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _crearInput(LoginBl bloc) {
+  Widget _crearInput(LoginBl inputValid) {
     return StreamBuilder(
-        stream: bloc.emailStream,
+        stream: inputValid.emailStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -127,38 +171,38 @@ class LoginPage extends StatelessWidget {
                   labelText: 'Email',
                   counterText: snapshot.data,
                   errorText: snapshot.error),
-              onChanged: (value) => bloc.changeEmail(value),
+              onChanged: (value) => inputValid.changeEmail(value),
             ),
           );
         });
   }
 
-  Widget _crearPassword(LoginBl bloc) {
+  Widget _crearPassword(LoginBl inputValid) {
     return StreamBuilder(
-      stream: bloc.passStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                icon: Icon(
-                  Icons.lock_outline,
-                  color: Colors.deepPurple,
-                ),
-                labelText: 'Password',
-                counterText: snapshot.data,
-                errorText: snapshot.error),
-            onChanged: (value) => bloc.changePass(value),
-          ),
-        );
-      },
-    );
+        stream: inputValid.passStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.lock_outline,
+                    color: Colors.deepPurple,
+                  ),
+                  labelText: 'Password',
+                  counterText: snapshot.data,
+                  errorText: snapshot.error),
+              onChanged: (value) => inputValid.changePass(value),
+            ),
+          );
+        });
   }
 
-  Widget _crearBoton(LoginBl bloc) {
+  Widget _crearBoton(LoginBl inputValid) {
     return StreamBuilder(
-      stream: bloc.fromValidStream,
+    
+      stream: inputValid.fromValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
           padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
@@ -170,18 +214,27 @@ class LoginPage extends StatelessWidget {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: () => _login(inputValid, context),
         );
       },
     );
   }
 
-  _login(LoginBl bloc, BuildContext context) {
+  void _login(LoginBl inputValid, BuildContext context) {
+    
+
+    loginBloc.add(Ingresar(inputValid.email,inputValid.pass));
+
     print('=====================');
-    print('Email : ${bloc.email}');
-    print('Pass  : ${bloc.pass}');
+    print('Email : ${inputValid.email}');
+    print('Pass  : ${inputValid.pass}');
     print('=====================');
-    Navigator.pushReplacementNamed(context, 'home');
+    // Navigator.pushReplacementNamed(context, 'home');
   }
 
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
 }
