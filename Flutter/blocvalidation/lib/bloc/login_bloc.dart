@@ -16,7 +16,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
-    yield Validando();
     if (event is Ingresar) {
       try {
         final model = await LoginAppRepository().validarModelo(event.email, event.pass);
@@ -28,5 +27,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if(event is Regresar){
       yield InitialLoginState();
     }
+    
   }
 }

@@ -371,5 +371,5 @@ En esta sección tocaremos temas sobre:
 
     Rutas
 
-
-    
+BLoC:
+    https://medium.com/comunidad-flutter/flutter-patr%C3%B3n-bloc-para-principiantes-como-yo-a853e58c2681

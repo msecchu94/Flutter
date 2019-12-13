@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     loginBloc = LoginBloc();
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,9 @@ class _LoginPageState extends State<LoginPage> {
               if (state is InitialLoginState) {
                 return _stackPrincipal(context);
               } else if (state is Validando) {
-                return buildLoading();
-              }
+                return _stackLoading(context);
+              }else if (state is Validado)
+              {return }
               return Container();
             },
           ),
@@ -56,54 +57,17 @@ class _LoginPageState extends State<LoginPage> {
     return Stack(
       children: <Widget>[
         _crearFondo(context),
-        _loginForm(context), // 
+        _loginForm(context), //
       ],
     );
   }
 
-  Widget _loginForm(context) {
-    final inputValid = Provider.of(context);
-    final size = MediaQuery.of(context).size;
-
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SafeArea(
-            child: Container(
-              height: 145.0,
-            ),
-          ),
-          Container(
-            width: size.width * 0.85,
-            margin: EdgeInsets.symmetric(vertical: 15.0),
-            padding: EdgeInsets.symmetric(vertical: 30.0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: Colors.black38,
-                      blurRadius: 3.0,
-                      offset: Offset(0.0, 2.0),
-                      spreadRadius: 1.0)
-                ]),
-            child: Column(
-              children: <Widget>[
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
-                SizedBox(height: 30.0),
-                _crearInput(inputValid),
-                SizedBox(height: 10.0),
-                _crearPassword(inputValid),
-                SizedBox(height: 40.0),
-                _crearBoton(inputValid),
-                // _crearBoton(),
-              ],
-            ),
-          ),
-          Text('¿Olvido contraseña?'),
-          SizedBox(height: 100.0),
-        ],
-      ),
+  Widget _stackLoading(context) {
+    return Stack(
+      children: <Widget>[
+        _crearFondo(context),
+        _loginFormLoading(context), //
+      ],
     );
   }
 
@@ -154,6 +118,95 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _loginForm(context) {
+    final inputValid = Provider.of(context);
+    final size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SafeArea(
+            child: Container(
+              height: 145.0,
+            ),
+          ),
+          Container(
+            width: size.width * 0.85,
+            margin: EdgeInsets.symmetric(vertical: 15.0),
+            padding: EdgeInsets.symmetric(vertical: 30.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 3.0,
+                      offset: Offset(0.0, 2.0),
+                      spreadRadius: 1.0)
+                ]),
+
+            //esconder column y devolver circular progres bar si el estado es Validando
+
+            child: Column(
+              children: <Widget>[
+                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                SizedBox(height: 30.0),
+                _crearInput(inputValid),
+                SizedBox(height: 10.0),
+                _crearPassword(inputValid),
+                SizedBox(height: 40.0),
+                _crearBoton(inputValid),
+                // _crearBoton(),
+              ],
+            ),
+          ),
+          Text('¿Olvido contraseña?'),
+          SizedBox(height: 100.0),
+        ],
+      ),
+    );
+  }
+
+  Widget _loginFormLoading(context) {
+    final inputValid = Provider.of(context);
+    final size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SafeArea(
+            child: Container(
+              height: 145.0,
+            ),
+          ),
+          Container(
+            width: size.width * 0.85,
+            margin: EdgeInsets.symmetric(vertical: 15.0),
+            padding: EdgeInsets.symmetric(vertical: 30.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5.0),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 3.0,
+                      offset: Offset(0.0, 2.0),
+                      spreadRadius: 1.0)
+                ]),
+
+            //esconder column y devolver circular progres bar si el estado es Validando
+
+            child: Column(
+              children: <Widget>[buildLoading()],
+            ),
+          ),
+          Text('¿Olvido contraseña?'),
+          SizedBox(height: 100.0),
+        ],
+      ),
+    );
+  }
+
   Widget _crearInput(LoginBl inputValid) {
     return StreamBuilder(
         stream: inputValid.emailStream,
@@ -201,7 +254,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _crearBoton(LoginBl inputValid) {
     return StreamBuilder(
-    
       stream: inputValid.fromValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
@@ -214,27 +266,26 @@ class _LoginPageState extends State<LoginPage> {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: () => _login(inputValid, context),
+          onPressed:
+              snapshot.hasData ? () => _login(inputValid, context) : null,
         );
       },
     );
-  }
-
-  void _login(LoginBl inputValid, BuildContext context) {
-    
-
-    loginBloc.add(Ingresar(inputValid.email,inputValid.pass));
-
-    print('=====================');
-    print('Email : ${inputValid.email}');
-    print('Pass  : ${inputValid.pass}');
-    print('=====================');
-    // Navigator.pushReplacementNamed(context, 'home');
   }
 
   Widget buildLoading() {
     return Center(
       child: CircularProgressIndicator(),
     );
+  }
+
+  void _login(LoginBl inputValid, BuildContext context) {
+    loginBloc.add(Ingresar(inputValid.email, inputValid.pass));
+
+    print('=====================');
+    print('Email : ${inputValid.email}');
+    print('Pass  : ${inputValid.pass}');
+    print('=====================');
+    // Navigator.pushReplacementNamed(context, 'home');
   }
 }
