@@ -1,21 +1,24 @@
+import 'package:blocvalidation/src/Streams/Login_Validator.dart';
 import 'package:flutter/material.dart';
-// import 'package:formvalidation/bloc/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final bloc = Provider.of(context);
+    final bloc = new LoginBl();
+
     
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(
+        centerTitle:true ,
+        title: Text('Home')),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // Text('Email : ${bloc.email}'),
-          // Divider(),
-          // Text('Email : ${bloc.pass}'),
+          Text('Email : ${bloc.email}'),
+          Divider(),
+          Text('Email : ${bloc.pass}'),
         ],
       ),
     );

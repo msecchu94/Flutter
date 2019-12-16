@@ -1,50 +1,54 @@
+import 'package:blocvalidation/bloc/bloc.dart';
 import 'package:blocvalidation/bloc/login_bloc.dart';
 import 'package:blocvalidation/bloc/login_event.dart';
 import 'package:blocvalidation/bloc/login_state.dart';
 import 'package:blocvalidation/src/Providers/Login_Provider.dart';
+import 'package:blocvalidation/src/Providers/Registro_Provider.dart';
 import 'package:blocvalidation/src/Streams/Login_Validator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class RegistroPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<RegistroPage> {
+  final usuarioProvider = new UsuarioProvider();
 
   final Validator validator = new Validator();
 
-  LoginBloc loginBloc;
+  RegisterBloc registerBloc;
   @override
   void initState() {
     super.initState();
-    loginBloc = LoginBloc();
+    registerBloc = RegisterBloc();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: BlocListener<LoginBloc, LoginState>(
-          bloc: loginBloc,
+        child: BlocListener<RegisterBloc, RegisterState>(
+          bloc: registerBloc,
           listener: (context, state) {
-            if (state is ErrorLogin) {
+            if (state is ErrorRegister) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              loginBloc.add(Regresar());
-            }else if(state is Validado){
-              return Navigator.pushReplacementNamed(context,'home');
+              // registerBloc.add(Regresar());
             }
+            // else if(state is Validado){
+            //   return Navigator.pushReplacementNamed(context,'home');
+            // }
           },
-          child: BlocBuilder<LoginBloc, LoginState>(
-            bloc: loginBloc,
+          child: BlocBuilder<RegisterBloc, RegisterState>(
+            bloc: registerBloc,
             builder: (context, state) {
-              if (state is InitialLoginState) {
+              if (state is InitialRegisterState) {
                 return _stackPrincipal(context);
-              } else if (state is Validando) {
+              } else if (state is Registrando) {
                 return _stackLoading(context);
               }
               return Container();
@@ -74,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _crearFondo(context) {
+
     final size = MediaQuery.of(context).size;
 
     final fondoMorado = Container(
@@ -152,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
 
             child: Column(
               children: <Widget>[
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 30.0),
                 _crearInput(inputValid),
                 SizedBox(height: 10.0),
@@ -164,8 +169,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           FlatButton(
-            child: Text('Crear una nueva cuenta'),
-            onPressed: ()=> Navigator.pushReplacementNamed(context,'registro'),
+            child: Text('Ya tienes cuenta? Login'),
+            onPressed: ()=> Navigator.pushReplacementNamed(context,'login'),
           ),
           SizedBox(height: 100.0),
         ],
@@ -273,7 +278,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.deepPurple,
           textColor: Colors.white,
           onPressed:
-              snapshot.hasData ? () => _login(inputValid, context) : null,
+              snapshot.hasData ? () => _register(inputValid, context) : null,
         );
       },
     );
@@ -285,13 +290,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _login(LoginBl inputValid, BuildContext context) {
-    loginBloc.add(Ingresar(inputValid.email, inputValid.pass));
+  void _register(LoginBl inputValid, BuildContext context) {
+    // RegisterBloc.add(Ingresar(inputValid.email, inputValid.pass));
 
-    print('=====================');
-    print('Email : ${inputValid.email}');
-    print('Pass  : ${inputValid.pass}');
-    print('=====================');
+  usuarioProvider.nuevoUsuario(inputValid.email,inputValid.pass);
     // Navigator.pushReplacementNamed(context, 'home');
   }
 }

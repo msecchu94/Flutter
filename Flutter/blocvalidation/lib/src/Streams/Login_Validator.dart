@@ -49,5 +49,4 @@ class LoginBl with Validator {
     _emailController?.close();
     _passwordController?.close();
   }
-
 }

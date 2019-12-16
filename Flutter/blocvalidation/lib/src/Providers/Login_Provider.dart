@@ -1,4 +1,5 @@
-import 'package:blocvalidation/bloc/validator.dart';
+import 'package:blocvalidation/src/Streams/Login_Validator.dart';
+export 'package:blocvalidation/src/Streams/Login_Validator.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,6 @@ class Provider extends InheritedWidget {
 
   Provider._internal({Key key, Widget child}) : super(key: key, child: child);
 
-  // : super(key: key, child: child)
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

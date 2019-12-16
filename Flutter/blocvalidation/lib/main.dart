@@ -1,6 +1,7 @@
-import 'package:blocvalidation/bloc/provider.dart';
+import 'package:blocvalidation/src/Providers/Login_Provider.dart';
 import 'package:blocvalidation/src/pages/home_page.dart';
 import 'package:blocvalidation/src/pages/login_page.dart';
+import 'package:blocvalidation/src/pages/registro_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'home': (BuildContext context) => HomePage(),
+          'registro': (BuildContext context) => RegistroPage(),
         },
         theme: ThemeData(primaryColor: Colors.deepPurple),
       ),
