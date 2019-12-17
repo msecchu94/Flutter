@@ -16,10 +16,11 @@ class Registrando extends RegisterState {
 
 class Registrado extends RegisterState {
   final String message;
+  final String email;
 
-  Registrado(this.message);
+  Registrado(this.message, this.email);
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message,email];
 }
 
 class ErrorRegister extends RegisterState {

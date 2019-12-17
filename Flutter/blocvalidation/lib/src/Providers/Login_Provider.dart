@@ -1,10 +1,14 @@
+import 'package:blocvalidation/bloc/bloc.dart';
 import 'package:blocvalidation/src/Streams/Login_Validator.dart';
 export 'package:blocvalidation/src/Streams/Login_Validator.dart';
 
 import 'package:flutter/material.dart';
 
 class Provider extends InheritedWidget {
-  final loginBloc = new LoginBl();
+  final loginBloc = new Streams();
+  // final validador = new Validator();
+  // final blocLogin = new LoginBloc();
+  // final blocRegister = new RegisterBloc();
 
   static Provider _instancia;
 
@@ -21,8 +25,12 @@ class Provider extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
-  static LoginBl of(BuildContext context) {
+  static Streams of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(Provider) as Provider)
         .loginBloc;
   }
+
+  // static Validator of(BuildContext context){
+  //   return (context.inheritFromWidgetOfExactType(Provider) as Provider).validador;
+  // }
 }

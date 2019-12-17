@@ -27,7 +27,7 @@ class Validator {
   });
 }
 
-class LoginBl with Validator {
+class Streams with Validator {
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 

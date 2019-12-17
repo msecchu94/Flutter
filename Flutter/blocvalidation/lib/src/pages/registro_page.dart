@@ -34,7 +34,8 @@ class _LoginPageState extends State<RegistroPage> {
               Scaffold.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              Navigator.pushNamed(context, 'login');
+              Navigator.pushReplacementNamed(context, 'login',
+                  arguments: state.email);
             }
           },
           child: BlocBuilder<RegisterBloc, RegisterState>(
@@ -210,7 +211,7 @@ class _LoginPageState extends State<RegistroPage> {
     );
   }
 
-  Widget _crearInput(LoginBl inputValid) {
+  Widget _crearInput(Streams inputValid) {
     return StreamBuilder(
         stream: inputValid.emailStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -233,7 +234,7 @@ class _LoginPageState extends State<RegistroPage> {
         });
   }
 
-  Widget _crearPassword(LoginBl inputValid) {
+  Widget _crearPassword(Streams inputValid) {
     return StreamBuilder(
         stream: inputValid.passStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -255,7 +256,7 @@ class _LoginPageState extends State<RegistroPage> {
         });
   }
 
-  Widget _crearBoton(LoginBl inputValid) {
+  Widget _crearBoton(Streams inputValid) {
     return StreamBuilder(
       stream: inputValid.fromValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -282,10 +283,10 @@ class _LoginPageState extends State<RegistroPage> {
     );
   }
 
-  void _register(LoginBl inputValid, BuildContext context) {
+  void _register(Streams inputValid, BuildContext context) {
     registerBloc.add(Registrar(inputValid.email, inputValid.pass));
 
-    usuarioProvider.nuevoUsuario(inputValid.email, inputValid.pass);
+    // usuarioProvider.nuevoUsuario(inputValid.email, inputValid.pass);
     // Navigator.pushReplacementNamed(context, 'home');
   }
 }

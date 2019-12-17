@@ -1,3 +1,4 @@
+import 'package:blocvalidation/bloc/bloc.dart';
 import 'package:blocvalidation/preferencias/preferencias_user.dart';
 import 'package:blocvalidation/src/Providers/Login_Provider.dart';
 import 'package:blocvalidation/src/pages/home_page.dart';
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         initialRoute: 'login',
         routes: {
-          'login': (BuildContext context) => LoginPage(),
-          'home': (BuildContext context) => HomePage(),
+          'login'   : (BuildContext context) => LoginPage(),
+          'home'    : (BuildContext context) => HomePage(),
           'registro': (BuildContext context) => RegistroPage(),
         },
         theme: ThemeData(primaryColor: Colors.deepPurple),

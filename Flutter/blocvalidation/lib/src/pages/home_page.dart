@@ -5,7 +5,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bloc = new LoginBl();
+    final bloc = new Streams();
 
     
     return Scaffold(

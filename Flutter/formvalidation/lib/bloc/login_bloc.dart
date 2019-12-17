@@ -13,13 +13,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
-    // yield InicialLogin();
-    // if (event is Validar) {
-    //   try {
-    //     final logear = await claseValidadora.validarPassword(event.email);
-    //   } on NetworkError {
-    //     yield ErrorLogin("error");
-    //   }
-    // } else {}
+    yield InicialLogin();
+    if (event is Validar) {
+      try {
+        final logear = await claseValidadora.validarPassword(event.email);
+      } on NetworkError {
+        yield ErrorLogin("error");
+      }
+    } else {}
   }
 }

@@ -13,18 +13,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final Validator validator = new Validator();
-
+  TextEditingController _textController;
   LoginBloc loginBloc;
+
   @override
   void initState() {
     super.initState();
     loginBloc = LoginBloc();
+    _textController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
+    final String _email = ModalRoute.of(context).settings.arguments;
+    _textController.text = _email ?? '';
+
     return Scaffold(
       body: Container(
         child: BlocListener<LoginBloc, LoginState>(
@@ -35,8 +39,8 @@ class _LoginPageState extends State<LoginPage> {
                 SnackBar(content: Text(state.message)),
               );
               loginBloc.add(Regresar());
-            }else if(state is Validado){
-              return Navigator.pushReplacementNamed(context,'home');
+            } else if (state is Validado) {
+              return Navigator.pushReplacementNamed(context, 'home');
             }
           },
           child: BlocBuilder<LoginBloc, LoginState>(
@@ -121,7 +125,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginForm(context) {
-
     final inputValid = Provider.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -165,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
           FlatButton(
             child: Text('Crear una nueva cuenta'),
-            onPressed: ()=> Navigator.pushReplacementNamed(context,'registro'),
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, 'registro'),
           ),
           SizedBox(height: 100.0),
         ],
@@ -213,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _crearInput(LoginBl inputValid) {
+  Widget _crearInput(Streams inputValid) {
     return StreamBuilder(
         stream: inputValid.emailStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -230,13 +234,14 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Email',
                   counterText: snapshot.data,
                   errorText: snapshot.error),
+              controller: _textController,
               onChanged: (value) => inputValid.changeEmail(value),
             ),
           );
         });
   }
 
-  Widget _crearPassword(LoginBl inputValid) {
+  Widget _crearPassword(Streams inputValid) {
     return StreamBuilder(
         stream: inputValid.passStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -258,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
         });
   }
 
-  Widget _crearBoton(LoginBl inputValid) {
+  Widget _crearBoton(Streams inputValid) {
     return StreamBuilder(
       stream: inputValid.fromValidStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -285,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _login(LoginBl inputValid, BuildContext context) {
+  void _login(Streams inputValid, BuildContext context) {
     loginBloc.add(Ingresar(inputValid.email, inputValid.pass));
 
     print('=====================');

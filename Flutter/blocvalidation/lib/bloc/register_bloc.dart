@@ -16,7 +16,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       yield Registrando();
       final res = await UsuarioProvider().nuevoUsuario(event.email, event.pass);
       if (res['ok']) {
-        yield Registrado('registrado');
+        yield Registrado('registrado',event.email);
       } else {
         yield ErrorRegister('error');
       }
