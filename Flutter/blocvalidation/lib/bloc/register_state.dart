@@ -1,5 +1,3 @@
-import 'package:blocvalidation/bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RegisterState extends Equatable {
@@ -17,9 +15,11 @@ class Registrando extends RegisterState {
 }
 
 class Registrado extends RegisterState {
+  final String message;
+
+  Registrado(this.message);
   @override
-  // TODO: implement props
-  List<Object> get props => null;
+  List<Object> get props => [message];
 }
 
 class ErrorRegister extends RegisterState {
@@ -30,11 +30,10 @@ class ErrorRegister extends RegisterState {
   List<Object> get props => [message];
 }
 
-class ExitoRegister extends RegisterState {
-  final String message;
+// class ExitoRegister extends RegisterState {
+//   final String message;
 
-  const ExitoRegister(this.message);
-  @override
-  // TODO: implement props
-  List<Object> get props => [message];
-}
+//   const ExitoRegister(this.message);
+//   @override
+//   List<Object> get props => [message];
+// }

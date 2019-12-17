@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:blocvalidation/src/Repository/login_repository.dart';
+import 'package:blocvalidation/src/Providers/Registro_Provider.dart';
 
 import 'login_event.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
- 
-
   @override
   LoginState get initialState => InitialLoginState();
 
@@ -17,12 +15,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async* {
     if (event is Ingresar) {
       yield Validando();
-      try {
-        final model =
-            await LoginAppRepository().validarModelo(event.email, event.pass);
-        yield Validado(model);
-      } on NetworkError {
-        yield ErrorLogin("Usuario y/o contraseña incorrecto");
+      final res = await UsuarioProvider().login(event.email, event.pass);
+      if (res['ok']) {
+        yield Validado();
+      } else {
+        yield ErrorLogin('error');
       }
     } else if (event is Regresar) {
       yield InitialLoginState();

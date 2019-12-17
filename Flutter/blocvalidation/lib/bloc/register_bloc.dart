@@ -5,7 +5,6 @@ import 'package:blocvalidation/bloc/register_state.dart';
 import 'package:blocvalidation/src/Providers/Registro_Provider.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-
   @override
   RegisterState get initialState => InitialRegisterState();
 
@@ -13,17 +12,14 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   Stream<RegisterState> mapEventToState(
     RegisterEvent event,
   ) async* {
-    // TODO: implement mapEventToState
     if (event is Registrar) {
       yield Registrando();
-      try {
-        final user = await UsuarioProvider().nuevoUsuario(event.email, event.pass);
-        yield 
-        
-       }
-       // on (e) {
-      // }
-      
+      final res = await UsuarioProvider().nuevoUsuario(event.email, event.pass);
+      if (res['ok']) {
+        yield Registrado('registrado');
+      } else {
+        yield ErrorRegister('error');
+      }
     }
   }
 }

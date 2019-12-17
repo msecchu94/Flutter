@@ -1,4 +1,3 @@
-import 'package:blocvalidation/src/models/login.model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class LoginState extends Equatable {
@@ -17,8 +16,8 @@ class Validando extends LoginState {
   List<Object> get props => [];
 }
 class Validado extends LoginState {
- final LoginModel model;
-  Validado(this.model);
+ 
+  Validado();
   @override
   List<Object> get props => [];
 }
