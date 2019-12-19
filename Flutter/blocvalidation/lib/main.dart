@@ -1,8 +1,8 @@
-import 'package:blocvalidation/bloc/bloc.dart';
 import 'package:blocvalidation/preferencias/preferencias_user.dart';
 import 'package:blocvalidation/src/Providers/Login_Provider.dart';
 import 'package:blocvalidation/src/pages/home_page.dart';
 import 'package:blocvalidation/src/pages/login_page.dart';
+import 'package:blocvalidation/src/pages/productos_page.dart';
 import 'package:blocvalidation/src/pages/registro_page.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'login',
+        initialRoute: 'home',
         routes: {
-          'login'   : (BuildContext context) => LoginPage(),
-          'home'    : (BuildContext context) => HomePage(),
+          'login': (BuildContext context) => LoginPage(),
+          'home': (BuildContext context) => HomePage(),
           'registro': (BuildContext context) => RegistroPage(),
+          'productos': (BuildContext context) => ProductoPage(),
         },
         theme: ThemeData(primaryColor: Colors.deepPurple),
       ),
