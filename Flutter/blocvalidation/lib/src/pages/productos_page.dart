@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:blocvalidation/src/Providers/Productos_Provider.dart';
 import 'package:blocvalidation/src/models/productos_model.dart';
 import 'package:blocvalidation/utils/utils.dart' as utils;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProductoPage extends StatefulWidget {
   ProductoPage({Key key}) : super(key: key);
@@ -16,6 +19,7 @@ class _ProductoPageState extends State<ProductoPage> {
   ProductoModel producto = new ProductoModel();
   final productosProvider = new ProductosProvider();
   bool _guardado = false;
+  File foto;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +35,11 @@ class _ProductoPageState extends State<ProductoPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.photo_size_select_actual),
-            onPressed: () {},
+            onPressed: _seleccionarFoto,
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed: () {},
+            onPressed: _tomarFoto,
           )
         ],
       ),
@@ -46,6 +50,7 @@ class _ProductoPageState extends State<ProductoPage> {
               key: formKey,
               child: Column(
                 children: <Widget>[
+                  _mostrarFoto(),
                   _crearProductoNombre(),
                   _crearProductoPrecio(),
                   _crearBoton(),
@@ -129,5 +134,31 @@ class _ProductoPageState extends State<ProductoPage> {
     }
     // mostrarSnack('Registro guardado');
     Navigator.pop(context);
+  }
+
+  Widget _mostrarFoto() {
+    if (producto.fotoUrl != null) {
+      return Container();
+    } else {
+      return Image(
+        image: AssetImage(foto?.path ?? 'assets/no-image.png'),
+        height: 200.0,
+        fit: BoxFit.cover,
+      );
+    }
+  }
+
+  _seleccionarFoto() async {
+    _procesarImage(ImageSource.gallery);
+  }
+
+  _tomarFoto() async {
+    _procesarImage(ImageSource.camera);
+  }
+
+  _procesarImage(ImageSource origen) async {
+    foto = await ImagePicker.pickImage(source: origen);
+    if (foto != null) {}
+    setState(() {});
   }
 }
