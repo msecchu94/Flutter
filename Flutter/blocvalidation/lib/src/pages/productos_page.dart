@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:blocvalidation/bloc/producto_bloc.dart';
+import 'package:blocvalidation/bloc/producto_event.dart';
+import 'package:blocvalidation/bloc/producto_state.dart';
 import 'package:blocvalidation/src/Providers/Productos_Provider.dart';
 import 'package:blocvalidation/src/models/productos_model.dart';
 import 'package:blocvalidation/utils/utils.dart' as utils;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductoPage extends StatefulWidget {
   ProductoPage({Key key}) : super(key: key);
@@ -14,12 +18,19 @@ class ProductoPage extends StatefulWidget {
 }
 
 class _ProductoPageState extends State<ProductoPage> {
+  ProductoBloc blocProducto;
   final formKey = GlobalKey<FormState>();
   final scafoldKey = GlobalKey<ScaffoldState>();
   ProductoModel producto = new ProductoModel();
   final productosProvider = new ProductosProvider();
   bool _guardado = false;
   File foto;
+
+  @override
+  void initState() {
+    blocProducto = new ProductoBloc();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +54,41 @@ class _ProductoPageState extends State<ProductoPage> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(15.0),
-          child: Form(
-              key: formKey,
-              child: Column(
-                children: <Widget>[
-                  _mostrarFoto(),
-                  _crearProductoNombre(),
-                  _crearProductoPrecio(),
-                  _crearBoton(),
-                  _crearDisponible()
-                ],
-              )),
-        ),
+      body: Container(
+        child: BlocListener<ProductoBloc, ProductoState>(
+            bloc: blocProducto,
+            listener: (context, state) {
+              if (state is GuardandoState) {
+                return buildLoading();
+              } else if (state is GuardadoState) {
+                return Navigator.pushNamed(context, 'home');
+              }
+            },
+            child: BlocBuilder<ProductoBloc, ProductoState>(
+              bloc: blocProducto,
+              builder: (context, state) {
+                return _principalProducto();
+              },
+            )),
+      ),
+    );
+  }
+
+  _principalProducto() {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(15.0),
+        child: Form(
+            key: formKey,
+            child: Column(
+              children: <Widget>[
+                _mostrarFoto(),
+                _crearProductoNombre(),
+                _crearProductoPrecio(),
+                _crearBoton(),
+                _crearDisponible()
+              ],
+            )),
       ),
     );
   }
@@ -122,23 +153,24 @@ class _ProductoPageState extends State<ProductoPage> {
     scafoldKey.currentState.showSnackBar(snack);
   }
 
-  void _submit() {
+  void _submit() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      _guardado = true;
-      if (producto.id == null) {
-        productosProvider.crearProducto(producto);
-      } else {
-        productosProvider.editarProducto(producto);
-      }
+
+      blocProducto.add(GuardarEvent(foto, producto));
+      // Navigator.pop(context);
     }
-    // mostrarSnack('Registro guardado');
-    Navigator.pop(context);
   }
 
   Widget _mostrarFoto() {
     if (producto.fotoUrl != null) {
-      return Container();
+      return FadeInImage(
+        image: NetworkImage(producto.fotoUrl),
+        placeholder: AssetImage('assets/jar-loading.gif'),
+        height: 200.0,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      );
     } else {
       return Image(
         image: AssetImage(foto?.path ?? 'assets/no-image.png'),
@@ -146,6 +178,12 @@ class _ProductoPageState extends State<ProductoPage> {
         fit: BoxFit.cover,
       );
     }
+  }
+
+  Widget buildLoading() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 
   _seleccionarFoto() async {
@@ -158,7 +196,9 @@ class _ProductoPageState extends State<ProductoPage> {
 
   _procesarImage(ImageSource origen) async {
     foto = await ImagePicker.pickImage(source: origen);
-    if (foto != null) {}
+    if (foto != null) {
+      producto.fotoUrl = null;
+    }
     setState(() {});
   }
 }

@@ -20,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    loginBloc = LoginBloc();
     _textController = TextEditingController();
   }
 

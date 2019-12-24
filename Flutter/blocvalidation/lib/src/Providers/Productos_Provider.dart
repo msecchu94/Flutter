@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:blocvalidation/src/models/productos_model.dart';
+import 'package:http_parser/http_parser.dart';
+
+import 'package:mime_type/mime_type.dart';
 import 'package:http/http.dart' as http;
 
 class ProductosProvider {
@@ -15,7 +19,7 @@ class ProductosProvider {
     print(decodeData);
     return true;
   }
- 
+
   Future<bool> editarProducto(ProductoModel productoModel) async {
     final url = '$_url/productos/${productoModel.id}.json';
 
@@ -52,5 +56,32 @@ class ProductosProvider {
     final res = await http.delete(url);
 
     print(json.decode(res.body));
+  }
+
+  Future<String> gusrdarImagen(File imagen) async {
+    final url = Uri.parse(
+        'http://api.cloudinary.com/v1_1/dgg8fmlad/image/upload?upload_preset=wlisvrm6');
+
+    final mineType = mime(imagen.path).split('/');
+    final imageUploadRequest = http.MultipartRequest('POST', url);
+
+    final file = await http.MultipartFile.fromPath('file', imagen.path,
+        contentType: MediaType(mineType[0], mineType[1]));
+
+    imageUploadRequest.files.add(file); // adjuntar
+
+    final streamResponse = await imageUploadRequest.send(); // ejecutar peticion
+
+    final resp = await http.Response.fromStream(streamResponse);
+
+    if (resp.statusCode != 200 && resp.statusCode != 201) {
+      print('algo salio mal ');
+      print(resp.body);
+      return null;
+    }
+
+    final respData = json.decode(resp.body);
+    print(respData);
+    return respData['secure_url'];
   }
 }
