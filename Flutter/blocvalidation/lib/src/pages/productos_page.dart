@@ -23,7 +23,7 @@ class _ProductoPageState extends State<ProductoPage> {
   final scafoldKey = GlobalKey<ScaffoldState>();
   ProductoModel producto = new ProductoModel();
   final productosProvider = new ProductosProvider();
-  bool _guardado = false;
+  // bool _guardado = false;
   File foto;
 
   @override
@@ -133,7 +133,7 @@ class _ProductoPageState extends State<ProductoPage> {
         textColor: Colors.white,
         label: Text('Guardar'),
         icon: Icon(Icons.save),
-        onPressed: (_guardado) ? null : _submit);
+        onPressed: _submit);
   }
 
   _crearDisponible() {
@@ -156,9 +156,9 @@ class _ProductoPageState extends State<ProductoPage> {
   void _submit() async {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
+      setState(() {});
 
       blocProducto.add(GuardarEvent(foto, producto));
-      // Navigator.pop(context);
     }
   }
 
@@ -196,7 +196,7 @@ class _ProductoPageState extends State<ProductoPage> {
 
   _procesarImage(ImageSource origen) async {
     foto = await ImagePicker.pickImage(source: origen);
-    if (foto != null) {
+    if (foto == null) {
       producto.fotoUrl = null;
     }
     setState(() {});

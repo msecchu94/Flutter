@@ -5,7 +5,7 @@ import 'package:blocvalidation/bloc/producto_state.dart';
 import 'package:blocvalidation/src/Providers/Productos_Provider.dart';
 import 'package:blocvalidation/src/models/productos_model.dart';
 import 'package:flutter/cupertino.dart';
-import './bloc.dart';
+// import './bloc.dart';
 
 class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
   ProductoModel producto;
@@ -20,10 +20,11 @@ class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
   ) async* {
     if (event is GuardarEvent) {
       yield GuardandoState();
-
       if (event.foto != null) {
-        producto.fotoUrl = await productosProvider.gusrdarImagen(event.foto);
-      } else if (event.productoModel.id == null) {
+        var url = await productosProvider.gusrdarImagen(event.foto);
+        event.productoModel.fotoUrl = url;
+      }
+      if (event.productoModel.id == null) {
         productosProvider.crearProducto(event.productoModel);
         yield GuardadoState();
       } else {

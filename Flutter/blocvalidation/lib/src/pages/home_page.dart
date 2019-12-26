@@ -1,9 +1,9 @@
-import 'package:blocvalidation/bloc/producto_bloc.dart';
-import 'package:blocvalidation/bloc/producto_state.dart';
+// import 'package:blocvalidation/bloc/producto_bloc.dart';
+// import 'package:blocvalidation/bloc/producto_state.dart';
+import 'package:flutter/material.dart';
 import 'package:blocvalidation/src/Providers/Productos_Provider.dart';
 import 'package:blocvalidation/src/models/productos_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,12 +12,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final productoProvider = new ProductosProvider();
-  ProductoBloc blocProducto;
+  // ProductoBloc blocProducto;
 
   @override
   void initState() {
     super.initState();
-    blocProducto = new ProductoBloc();
+    // blocProducto = new ProductoBloc();
   }
 
   @override

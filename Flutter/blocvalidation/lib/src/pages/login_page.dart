@@ -1,6 +1,7 @@
 import 'package:blocvalidation/bloc/login_bloc.dart';
 import 'package:blocvalidation/bloc/login_event.dart';
 import 'package:blocvalidation/bloc/login_state.dart';
+import 'package:blocvalidation/preferencias/preferencias_user.dart';
 import 'package:blocvalidation/src/Providers/Login_Provider.dart';
 import 'package:blocvalidation/src/Streams/Login_Validator.dart';
 
@@ -16,17 +17,21 @@ class _LoginPageState extends State<LoginPage> {
   final Validator validator = new Validator();
   TextEditingController _textController;
   LoginBloc loginBloc;
+  PreferenciasUsuario prefs;
 
   @override
   void initState() {
     super.initState();
+    loginBloc = new LoginBloc();
     _textController = TextEditingController();
+    prefs = new PreferenciasUsuario();
   }
 
   @override
   Widget build(BuildContext context) {
     final String _email = ModalRoute.of(context).settings.arguments;
     _textController.text = _email ?? '';
+    prefs.token;
 
     return Scaffold(
       body: Container(
