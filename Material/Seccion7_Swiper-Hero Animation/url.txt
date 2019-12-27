@@ -1,0 +1,3 @@
+Swiper : https://pub.dev/packages/flutter_swiper
+
+Hero : https://flutter.dev/docs/development/ui/animations/hero-animations

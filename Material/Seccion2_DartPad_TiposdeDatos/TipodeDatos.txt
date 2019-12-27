@@ -1,0 +1,32 @@
+https://dartpad.dartlang.org/
+
+String : https://github.com/Klerith/dart-basics/blob/master/02-tipos-numero-string.dart
+
+Bool y condiciones : https://github.com/Klerith/dart-basics/blob/master/03-bool-condicion.dart
+
+Listas : https://github.com/Klerith/dart-basics/blob/master/04-listas.dart
+
+Mapas : https://github.com/Klerith/dart-basics/blob/master/05-map.dart
+
+Funciones : https://github.com/Klerith/dart-basics/blob/master/06-funciones.dart
+
+Clases : https://github.com/Klerith/dart-basics/blob/master/07-clase-basica.dart
+
+Contructores con Nombre : https://github.com/Klerith/dart-basics/blob/master/08-named-constructor.dart
+
+Getters y Setters : https://github.com/Klerith/dart-basics/blob/master/09-getters-setters.dart 
+
+Clases abstractas : https://github.com/Klerith/dart-basics/blob/master/07-clase-basica.dart , https://github.com/Klerith/dart-basics/blob/master/10-clases-abstractas.dart
+
+Extends : https://github.com/Klerith/dart-basics/blob/master/11-extends.dart
+
+Mixins : https://medium.com/flutter-community/dart-what-are-mixins-3a72344011f3 - https://github.com/Klerith/dart-basics/blob/master/12-mixins.dart
+
+Futures : https://github.com/Klerith/dart-basics/blob/master/13-futures.dart
+
+Async - Await : https://github.com/Klerith/dart-basics/blob/master/14-async-await.dart
+
+
+
+
+

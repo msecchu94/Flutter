@@ -1,0 +1,5 @@
+doc api fir ebase : https://firebase.google.com/docs/reference/rest/database
+
+image_picker : https://pub.dev/packages/image_picker
+
+api imagen : https://cloudinary.com/documentation/image_upload_api_reference / mime type : https://pub.dev/packages/mime_type#-readme-tab-

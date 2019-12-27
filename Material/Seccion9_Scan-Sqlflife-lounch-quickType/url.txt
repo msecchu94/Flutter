@@ -1,0 +1,9 @@
+generador de codigo qr : https://www.qrcode.es/es/generador-qr-code/
+
+barcode : https://pub.dev/packages/barcode_scan#-installing-tab-
+
+sqflite# : https://pub.dev/packages/sqflite#-readme-tab-
+
+path_provider# : https://pub.dev/packages/path_provider#-installing-tab-
+
+quicktype : https://app.quicktype.io/

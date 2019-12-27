@@ -1,0 +1,1 @@
+httpsmaterial.ioresourcesiconsstyle=baseline

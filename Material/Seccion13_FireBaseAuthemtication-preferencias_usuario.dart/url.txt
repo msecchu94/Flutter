@@ -1,0 +1,5 @@
+Firebase Auth REST API : https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
+
+codigo prefs : https://gist.github.com/Klerith/8f6c75db4fb0696f6cdd5852b377b1e1
+
+

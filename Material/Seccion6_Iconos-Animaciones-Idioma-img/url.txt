@@ -1,0 +1,9 @@
+icons helper : https://pub.dev/packages/icons_helper#-readme-tab-
+
+Curvas : https://api.flutter.dev/flutter/animation/Curves-class.html
+
+animatedContainer : https://flutter.dev/docs/cookbook/animation/animated-container
+
+lenguaje : https://flutter.dev/docs/development/accessibility-and-localization/internationalization#specifying-supportedlocales - https://api.flutter.dev/flutter/flutter_localizations/GlobalMaterialLocalizations-class.html
+
+lorem pictum : https://picsum.photos/
