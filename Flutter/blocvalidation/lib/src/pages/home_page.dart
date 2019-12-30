@@ -17,17 +17,20 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // blocProducto = new ProductoBloc();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Home')),
-      body: Container(
-        child: _crearLista(),
+    // final safe = MediaQuery.of(context).padding;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(centerTitle: true, title: (Text('Home'))),
+        body: Container(
+          child: _crearLista(),
+        ),
+        floatingActionButton: _crearBoton(context),
       ),
-      floatingActionButton: _crearBoton(context),
     );
   }
 

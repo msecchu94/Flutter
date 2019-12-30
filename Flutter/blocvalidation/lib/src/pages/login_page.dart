@@ -33,30 +33,32 @@ class _LoginPageState extends State<LoginPage> {
     _textController.text = _email ?? '';
     prefs.token;
 
-    return Scaffold(
-      body: Container(
-        child: BlocListener<LoginBloc, LoginState>(
-          bloc: loginBloc,
-          listener: (context, state) {
-            if (state is ErrorLogin) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-              loginBloc.add(Regresar());
-            } else if (state is Validado) {
-              return Navigator.pushReplacementNamed(context, 'home');
-            }
-          },
-          child: BlocBuilder<LoginBloc, LoginState>(
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          child: BlocListener<LoginBloc, LoginState>(
             bloc: loginBloc,
-            builder: (context, state) {
-              if (state is InitialLoginState) {
-                return _stackPrincipal(context);
-              } else if (state is Validando) {
-                return _stackLoading(context);
+            listener: (context, state) {
+              if (state is ErrorLogin) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
+                loginBloc.add(Regresar());
+              } else if (state is Validado) {
+                return Navigator.pushReplacementNamed(context, 'home');
               }
-              return Container();
             },
+            child: BlocBuilder<LoginBloc, LoginState>(
+              bloc: loginBloc,
+              builder: (context, state) {
+                if (state is InitialLoginState) {
+                  return _stackPrincipal(context);
+                } else if (state is Validando) {
+                  return _stackLoading(context);
+                }
+                return Container();
+              },
+            ),
           ),
         ),
       ),
