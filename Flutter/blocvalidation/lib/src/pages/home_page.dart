@@ -23,15 +23,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // final safe = MediaQuery.of(context).padding;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: (Text('Home'))),
-        body: Container(
-          child: _crearLista(),
+  
+      return SafeArea(
+              child: Scaffold(
+          appBar: AppBar(centerTitle: true, title: Text('Home')),
+          body: Container(
+            child: _crearLista(),
+          ),
+          floatingActionButton: _crearBoton(context),
         ),
-        floatingActionButton: _crearBoton(context),
-      ),
-    );
+      );
+   
   }
 
   Widget _crearBoton(BuildContext context) {

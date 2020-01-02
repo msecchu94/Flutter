@@ -8,9 +8,9 @@ import 'package:blocvalidation/src/pages/registro_page.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  runApp(MyApp());
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'logo',
+        initialRoute: 'login',
         routes: {
           'logo': (BuildContext context) => LogoPage(),
           'login': (BuildContext context) => LoginPage(),
