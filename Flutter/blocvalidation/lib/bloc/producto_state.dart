@@ -1,6 +1,6 @@
-import 'package:blocvalidation/src/models/productos_model.dart';
+// import 'package:blocvalidation/src/models/productos_model.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 
 abstract class ProductoState extends Equatable {
   const ProductoState();
