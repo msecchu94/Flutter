@@ -4,11 +4,11 @@ class HeroesInfo with ChangeNotifier {
   String _heroe = 'Capital America';
 
   get heroe {
-    return heroe;
+    return _heroe;
   }
 
   set heroe(String nombre) {
     this._heroe = nombre;
-    ChangeNotifier();
+    notifyListeners();
   }
 }
