@@ -1,3 +1,4 @@
+import 'package:beats_app/src/widgets/cards_view.dart';
 import 'package:beats_app/src/widgets/customeappbar.dart';
 import 'package:beats_app/src/widgets/fondocircular.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[CustomeAppBar(), _Header()],
+                children: <Widget>[CustomeAppBar(), _Header(),SizedBox(height: 30.0), CardsView()],
               ),
             ),
           ),
@@ -58,11 +59,15 @@ class ByButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Buy', style: TextStyle(color: Colors.white)),
+                SizedBox(width: size.width * 0.1),
+                Text('Buy',
+                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
                 SizedBox(
                   width: 5.0,
                 ),
-                Icon(FontAwesomeIcons.arrowRight, color: Colors.white)
+                Spacer(),
+                Icon(FontAwesomeIcons.arrowRight, color: Colors.white),
+                SizedBox(width:5.0)
               ],
             ),
             width: size.width * 0.3,
