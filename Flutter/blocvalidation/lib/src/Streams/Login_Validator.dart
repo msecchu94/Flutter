@@ -1,19 +1,8 @@
 import 'dart:async';
 
-
 import 'package:rxdart/rxdart.dart';
 
 class Validator {
-
-  final validarPassword = StreamTransformer<String, String>.fromHandlers(
-      handleData: (password, sink) {
-    if (password.length >= 6) {
-      sink.add(password);
-    } else {
-      sink.addError('Mas de 6 caracteres');
-    }
-  });
-  
   final validarEmail =
       StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
     Pattern pattern =
@@ -23,6 +12,15 @@ class Validator {
       sink.add(email);
     } else {
       sink.addError('error de formato');
+    }
+  });
+
+  final validarPassword = StreamTransformer<String, String>.fromHandlers(
+      handleData: (password, sink) {
+    if (password.length >= 6) {
+      sink.add(password);
+    } else {
+      sink.addError('Mas de 6 caracteres');
     }
   });
 }
