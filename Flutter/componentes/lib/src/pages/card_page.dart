@@ -6,9 +6,11 @@ class CardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cards Pages'),
+        
       ),
       body: ListView(
         padding: EdgeInsets.all(10.0),
+      
         children: <Widget>[
           _cardTipo1(),
           SizedBox(height: 30.0),
